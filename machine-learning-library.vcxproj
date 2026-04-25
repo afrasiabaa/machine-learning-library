@@ -130,7 +130,10 @@
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="activation.h" />
+    <ClInclude Include="error_functions.h" />
     <ClInclude Include="matrix.h" />
+    <ClInclude Include="Neuron.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

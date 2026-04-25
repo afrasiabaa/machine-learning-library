@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
-// Definition of our matrix
-typedef struct 
+// Do not create a Matrix struct with the constructor. Use the matrix_alloc() function instead.
+typedef struct
 {
 	size_t _cols;
 	size_t _rows;
@@ -16,13 +16,18 @@ typedef struct
 } Matrix;
 
 // Create a matrix
-static inline Matrix matrix_alloc(const size_t* cols, const size_t* rows)
+static inline Matrix matrix_alloc(const int cols, const int rows)
 {
 	Matrix m;
-	m._cols = *cols;
-	m._rows = *rows;
-	m._data = (double*)malloc(sizeof(*m._data) * *rows * *cols);
+	m._cols = (size_t)cols;
+	m._rows = (size_t)rows;
+	m._data = (double*)malloc(sizeof(*m._data) * rows * cols);
 	assert(m._data != NULL);
+
+	const size_t total_matrix_size = m._cols * m._rows;
+	for (size_t i = 0; i < total_matrix_size; ++i)
+		m._data[i] = 10;
+
 	return m;
 }
 
@@ -66,9 +71,26 @@ static inline void matrix_add(Matrix* result, const Matrix* a, const Matrix* b)
 		result->_data[i] = a->_data[i] + b->_data[i];
 }
 
-static void matrix_print(const Matrix* matrix)
+static void matrix_rand(Matrix* m, const double min, const double max) 
 {
-	
+
+}
+
+static void matrix_print(const Matrix* m)
+{
+	const size_t total_matrix_size = m->_rows * m->_cols;
+	size_t counter = 0;
+
+	for (size_t i = 0; i < total_matrix_size; ++i)
+	{
+		printf("%.lf ", m->_data[i]);
+		++counter;
+		if (counter >= m->_cols)
+		{
+			counter = 0;
+			printf("\n\0");
+		}
+	}
 }
 
 #endif // !MATRIX_H
