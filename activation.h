@@ -1,7 +1,14 @@
 #ifndef ACTIVATION_H
 #define ACTIVATION_H
 
-static inline double sigmoid()
+#include "matrix.h"
+
+static inline matrix* sigmoid()
+{
+
+}
+
+static inline matrix* softmax()
 {
 
 }
