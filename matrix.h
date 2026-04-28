@@ -20,7 +20,7 @@ typedef struct
 // Create a matrix
 static inline matrix matrix_alloc(const int cols, const int rows)
 {
-	matrix m = {0, 0, NULL}; // fix this return to make it a pointer
+	matrix m = {0, 0, NULL};
 
 	if (cols <= 0 || rows <= 0)
 		return m;
@@ -124,6 +124,25 @@ static void matrix_print(const matrix* m, const bool whole_number)
 			printf("\n");
 		}
 	}
+}
+
+static inline void matrix_convolution(matrix* result, const matrix* image, const matrix* kernel)
+{
+	assert(result->_cols == (image->_cols - kernel->_cols + 1));
+	assert(result->_rows == (image->_rows - kernel->_rows + 1));
+
+	for (size_t y = 0; y < result->_rows; ++y)
+		for (size_t x = 0; x < result->_cols; ++x)
+		{
+			double sum = 0.0f;
+			for (size_t ky = 0; ky < kernel->_rows; ++ky)
+			{
+				for (size_t kx = 0; kx < kernel->_cols; ++kx)
+					sum += MATRIX_AT(*image, x + kx, y + ky) * MATRIX_AT(*kernel, kx, ky);
+			}
+					
+			MATRIX_AT(*result, x, y) = sum;
+		}
 }
 
 #endif // !MATRIX_H
