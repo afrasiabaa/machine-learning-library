@@ -93,7 +93,7 @@ static inline void matrix_add_bias(matrix* result, const matrix* bias)
 	assert(bias->_rows == 1); // each column will be a neurons bias for one row.
 
 	for (size_t r = 0; r < result->_rows; ++r)
-		for (size_t c = 0; c < result->_cols ++c)
+		for (size_t c = 0; c < result->_cols; ++c)
 			MATRIX_AT(*result, c, r) += MATRIX_AT(*bias, c, 0);
 }
 
