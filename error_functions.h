@@ -23,11 +23,15 @@ static inline double categorical_crossentropy_loss(matrix* a, matrix* b)
 	double total_loss = 0.0f;
 
 	double epsilion = 1e-15;
+	double temp_log = 0.0f;
 	size_t matrix_a_size = a->_cols * a->_rows;
-	for (size_t i = 0; i < matrix_a_size; ++i);
-
+	for (size_t i = 0; i < matrix_a_size; ++i)
+	{
+		temp_log = log(a->_data[i] + epsilion);
+		total_loss += b->_data[i] * temp_log;
+	}
 	
-	return total_loss;
+	return -total_loss;
 }
 
 #endif // !ERROR_FUNCTIONS_H
